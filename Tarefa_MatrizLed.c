@@ -78,7 +78,7 @@ char ler_keypad() {
         gpio_put(row_pins[row], 0);  // Garante que a linha retorna ao estado baixo
     }
     return '\0';  // Nenhuma tecla foi pressionada
-
+}
 
 int main() {
     char key;  // Variável para armazenar a tecla pressionada
