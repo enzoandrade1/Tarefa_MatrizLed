@@ -45,7 +45,14 @@
     { "type": "wokwi-gnd", "id": "gnd4", "top": -242.98, "left": 805.31, "attrs": {} },
     { "type": "wokwi-vcc", "id": "vcc4", "top": -347.82, "left": 805.91, "attrs": {} },
     { "type": "wokwi-vcc", "id": "vcc5", "top": -434.22, "left": 1141.91, "attrs": {} },
-    { "type": "wokwi-gnd", "id": "gnd5", "top": -338.98, "left": 1141.31, "attrs": {} }
+    { "type": "wokwi-gnd", "id": "gnd5", "top": -338.98, "left": 1141.31, "attrs": {} },
+    {
+      "type": "wokwi-buzzer",
+      "id": "bz1",
+      "top": 213.6,
+      "left": 1115.4,
+      "attrs": { "volume": "0.1" }
+    }
   ],
   "connections": [
     [ "keypad1:R1", "pico1:GP8", "green", [ "v105.6", "h336", "v-28.8" ] ],
@@ -140,7 +147,9 @@
     [ "rgb23:VSS", "gnd5:GND", "green", [ "v0" ] ],
     [ "rgb24:VSS", "gnd5:GND", "green", [ "v0" ] ],
     [ "rgb25:VSS", "gnd5:GND", "green", [ "v0" ] ],
-    [ "rgb1:DIN", "pico1:GP27", "green", [ "h57.29", "v175.78" ] ]
+    [ "rgb1:DIN", "pico1:GP27", "green", [ "h57.29", "v175.78" ] ],
+    [ "pico1:GP21", "bz1:2", "green", [ "h38.71", "v48", "h134.4" ] ],
+    [ "pico1:GND.6", "bz1:1", "black", [ "h48.31", "v48" ] ]
   ],
   "dependencies": {}
 }

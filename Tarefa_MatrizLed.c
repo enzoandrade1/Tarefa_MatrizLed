@@ -26,7 +26,23 @@ const char key_map[ROWS][COLS] = {
 // Biblioteca para enviar animações para a matriz de leds
 #include "lib/matriz_leds.h"
 
-#define LED_PIN 27
+// Definição do teclado matricial
+#define ROWS 4
+#define COLS 4
+
+// Pinos conectados às linhas (ROWS) e colunas (COLS) do teclado
+const uint8_t row_pins[ROWS] = {8, 7, 6, 5};
+const uint8_t col_pins[COLS] = {4, 3, 2, 28};
+
+// Mapeamento das teclas no teclado matricial
+const char key_map[ROWS][COLS] = {
+    {'1', '2', '3', 'A'},
+    {'4', '5', '6', 'B'},
+    {'7', '8', '9', 'C'},
+    {'*', '0', '#', 'D'}
+};
+
+#define LED_PIN 7
 
 // Numero de frames de cada animacao
 #define ANIMACAO_6 9
@@ -34,6 +50,20 @@ const char key_map[ROWS][COLS] = {
 // Frames da animacao 6
 extern uint32_t anim6[][25];
 
+// A ser chamada quando a tecla 'D' for pressionada
+void tecla_d(PIO pio, uint sm){
+    Matriz_leds_config matriz;
+    for(int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            matriz[i][j].red = 0.0;
+            matriz[i][j].green = 0.5;
+            matriz[i][j].blue = 0.0;
+        }
+    }
+    imprimir_desenho(matriz,pio,sm);
+}
+
+// A ser chamado quando a tecla '6' for pressionada 
 void animation6(uint32_t sprites[][25],PIO pio, uint sm) {
     // 20 Frames e 25 LEDS
     rgb_led rgb_data[ANIMACAO_6][25];

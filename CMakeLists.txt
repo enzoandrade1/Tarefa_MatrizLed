@@ -49,9 +49,9 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 file(GLOB LIBSOURCES "lib/*.c")
-file(GLOB ANIMSOURCES "anim/*.c")
+file(GLOB ASSETSOURCES "assets/*.c")
 
-add_executable(Tarefa_MatrizLed Tarefa_MatrizLed.c ${LIBSOURCES} ${ANIMSOURCES})
+add_executable(Tarefa_MatrizLed Tarefa_MatrizLed.c ${LIBSOURCES} ${ASSETSOURCES})
 
 pico_set_program_name(Tarefa_MatrizLed "Tarefa_MatrizLed")
 pico_set_program_version(Tarefa_MatrizLed "0.1")
