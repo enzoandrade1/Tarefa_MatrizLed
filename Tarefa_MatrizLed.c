@@ -40,6 +40,12 @@ int main() {
 
 
     while (true) {
+
+        /*
+            Chamar animation6 quando a tecla 6 do keypad for pressionada
+            Fazer apos o keypad ser configurado
+        */
+
         printf("Hello world!");
         sleep_ms(1000);
     }
