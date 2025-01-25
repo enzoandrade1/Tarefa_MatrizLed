@@ -129,7 +129,6 @@ int main() {
                     break;
 
                 case '6':
-                    animation6(anim6, pio, sm);
                     break;
 
                 case 'A':
@@ -145,7 +144,6 @@ int main() {
                     break;
 
                 case 'D':
-                    tecla_d(pio, sm);
                     break;
 
                 case '*':
