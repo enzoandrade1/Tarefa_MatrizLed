@@ -129,6 +129,7 @@ int main() {
                     break;
 
                 case '6':
+                    //Escrever a função aqui
                     break;
 
                 case 'A':
@@ -144,6 +145,7 @@ int main() {
                     break;
 
                 case 'D':
+                    //Escrever a função aqui
                     break;
 
                 case '*':
