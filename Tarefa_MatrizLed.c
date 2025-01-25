@@ -129,7 +129,7 @@ int main() {
                     break;
 
                 case '6':
-                    //Escrever a função aqui
+                    animation6(anim6, pio, sm);
                     break;
 
                 case 'A':
@@ -145,7 +145,7 @@ int main() {
                     break;
 
                 case 'D':
-                    //Escrever a função aqui
+                    tecla_d(pio, sm);
                     break;
 
                 case '*':
