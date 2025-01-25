@@ -56,6 +56,24 @@ void tecla_d(PIO pio, uint sm){
     imprimir_desenho(matriz,pio,sm);
 }
 
+// A ser chamada quando a tecla 'A' for pressionada
+void apagar_leds(PIO pio, uint sm) {
+    Matriz_leds_config matriz;
+
+    // Itera sobre cada posição da matriz para apagar os LEDs
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            matriz[i][j].red = 0.0;   // Desliga o componente vermelho
+            matriz[i][j].green = 0.0; // Desliga o componente verde
+            matriz[i][j].blue = 0.0;  // Desliga o componente azul
+        }
+    }
+
+    // Envia a configuração de apagar para a matriz de LEDs
+    imprimir_desenho(matriz, pio, sm);
+}
+
+
 // A ser chamado quando a tecla '6' for pressionada 
 void animation6(uint32_t sprites[][25],PIO pio, uint sm) {
     // 20 Frames e 25 LEDS
@@ -148,7 +166,7 @@ int main() {
                     break;
 
                 case 'A':
-                    //Escrever a função aqui
+                    apagar_leds(pio, sm);
                     break;
 
                 case 'B':
