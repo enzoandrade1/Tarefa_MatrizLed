@@ -48,14 +48,17 @@ project(Tarefa_MatrizLed C CXX ASM)
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
+file(GLOB LIBSOURCES "lib/*.c")
+file(GLOB ANIMSOURCES "anim/*.c")
 
-add_executable(Tarefa_MatrizLed Tarefa_MatrizLed.c )
+add_executable(Tarefa_MatrizLed Tarefa_MatrizLed.c ${LIBSOURCES} ${ANIMSOURCES})
 
 pico_set_program_name(Tarefa_MatrizLed "Tarefa_MatrizLed")
 pico_set_program_version(Tarefa_MatrizLed "0.1")
 
 # Generate PIO header
-pico_generate_pio_header(Tarefa_MatrizLed ${CMAKE_CURRENT_LIST_DIR}/ws2818b.pio)
+pico_generate_pio_header(${CMAKE_PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/ws2818b.pio)
+pico_generate_pio_header(${CMAKE_PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/lib/pio_matrix.pio)
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(Tarefa_MatrizLed 1)
