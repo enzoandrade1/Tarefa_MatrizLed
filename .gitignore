@@ -1,4 +1,2 @@
 build
 .vscode
-lib/keypad.c
-lib/keypad.h

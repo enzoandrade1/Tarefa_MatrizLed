@@ -6,26 +6,12 @@
 #include "pico/bootrom.h"
 #include "ws2818b.pio.h"
 
-// Definição do teclado matricial
-#define ROWS 4
-#define COLS 4
-
-// Pinos conectados às linhas (ROWS) e colunas (COLS) do teclado
-const uint8_t row_pins[ROWS] = {8, 7, 6, 5};
-const uint8_t col_pins[COLS] = {4, 3, 2, 28};
-
-// Mapeamento das teclas no teclado matricial
-const char key_map[ROWS][COLS] = {
-    {'1', '2', '3', 'A'},
-    {'4', '5', '6', 'B'},
-    {'7', '8', '9', 'C'},
-    {'*', '0', '#', 'D'}
-};
-
-
 // Biblioteca para enviar animações para a matriz de leds
 #include "lib/matriz_leds.h"
 
+// Bilioteca para utilizar o buzzer
+#include "lib/buzzer.h"
+
 // Definição do teclado matricial
 #define ROWS 4
 #define COLS 4
@@ -42,13 +28,20 @@ const char key_map[ROWS][COLS] = {
     {'*', '0', '#', 'D'}
 };
 
-#define LED_PIN 7
+// Pino do led
+#define LED_PIN 27
+
+#define BUZZER_PIN 21
 
 // Numero de frames de cada animacao
 #define ANIMACAO_6 9
 
 // Frames da animacao 6
 extern uint32_t anim6[][25];
+
+// Melodia para a animacao 6
+extern uint16_t frequencies[18];
+extern uint16_t durations[18];
 
 // A ser chamada quando a tecla 'D' for pressionada
 void tecla_d(PIO pio, uint sm){
@@ -76,6 +69,9 @@ void animation6(uint32_t sprites[][25],PIO pio, uint sm) {
 
     // Renderizando a animacao na matriz de LEDs
     enviar_animacao(rgb_data, pio, sm, ANIMACAO_6);
+
+    // Ativa o buzzer
+    buzz(BUZZER_PIN, frequencies, durations);
 }
 
 // Inicializa os pinos do teclado matricial.
@@ -114,6 +110,7 @@ int main() {
     char key;  // Variável para armazenar a tecla pressionada
     stdio_init_all();
     inicializar_keypad();
+    buzzer_init(BUZZER_PIN);
 
     // Inicializando o componente pio responsavel por manipular o LED
     PIO pio = pio0;
@@ -147,7 +144,7 @@ int main() {
                     break;
 
                 case '6':
-                    //Escrever a função aqui
+                    animation6(anim6, pio, sm);
                     break;
 
                 case 'A':
@@ -163,7 +160,7 @@ int main() {
                     break;
 
                 case 'D':
-                    //Escrever a função aqui
+                    tecla_d(pio, sm);
                     break;
 
                 case '*':
