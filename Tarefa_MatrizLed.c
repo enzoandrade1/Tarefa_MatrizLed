@@ -59,6 +59,36 @@ extern uint32_t anim1[][25];
 extern uint16_t frequencies[18];
 extern uint16_t durations[18];
 
+// A ser chamada quando a tecla 'A' for pressionada
+void apagar_leds(PIO pio, uint sm) {
+    Matriz_leds_config matriz;
+
+    // Itera sobre cada posição da matriz para apagar os LEDs
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            matriz[i][j].red = 0.0;   // Desliga o componente vermelho
+            matriz[i][j].green = 0.0; // Desliga o componente verde
+            matriz[i][j].blue = 0.0;  // Desliga o componente azul
+        }
+    }
+
+    // Envia a configuração de apagar para a matriz de LEDs
+    imprimir_desenho(matriz, pio, sm);
+}
+
+// A ser chamada quando a tecla 'B' for pressionada
+void tecla_b(PIO pio, uint sm){
+    Matriz_leds_config matriz;
+    for(int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            matriz[i][j].red = 0.0;
+            matriz[i][j].green = 0.0;
+            matriz[i][j].blue = 1.0; //Acenderá os leds na cor azul com 100% de intensidade
+        }
+    }
+    imprimir_desenho(matriz,pio,sm);
+}
+
 // A ser chamada quando a tecla 'C' for pressionada
 void acender_leds_vermelho(PIO pio, uint sm) {
     Matriz_leds_config matriz;
@@ -87,23 +117,6 @@ void tecla_d(PIO pio, uint sm){
         }
     }
     imprimir_desenho(matriz,pio,sm);
-}
-
-// A ser chamada quando a tecla 'A' for pressionada
-void apagar_leds(PIO pio, uint sm) {
-    Matriz_leds_config matriz;
-
-    // Itera sobre cada posição da matriz para apagar os LEDs
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
-            matriz[i][j].red = 0.0;   // Desliga o componente vermelho
-            matriz[i][j].green = 0.0; // Desliga o componente verde
-            matriz[i][j].blue = 0.0;  // Desliga o componente azul
-        }
-    }
-
-    // Envia a configuração de apagar para a matriz de LEDs
-    imprimir_desenho(matriz, pio, sm);
 }
 
 // A ser chamada quando a tecla '#' for pressionada
@@ -278,7 +291,7 @@ int main() {
                     break;
 
                 case 'B':
-                    //Escrever a função aqui
+                    tecla_b(pio, sm);
                     break;
 
                 case 'C':
