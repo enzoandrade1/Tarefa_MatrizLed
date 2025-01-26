@@ -49,7 +49,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 file(GLOB LIBSOURCES "lib/*.c")
-file(GLOB ASSETSOURCES "assets/*.c")
+file(GLOB ASSETSOURCES "Assets/*.c")
 
 add_executable(Tarefa_MatrizLed Tarefa_MatrizLed.c ${LIBSOURCES} ${ASSETSOURCES})
 

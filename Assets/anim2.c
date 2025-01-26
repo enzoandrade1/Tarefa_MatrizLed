@@ -6,7 +6,7 @@
 
 /* Piskel data for "New Piskel" */
 
-static const uint32_t anim2[7][25] = {
+const uint32_t anim2[7][25] = {
 {
 0xffff1300, 0xffff1300, 0xffff1300, 0xffff1300, 0xffff1300, 
 0xffff1300, 0xffff1300, 0xffff1300, 0xffff1300, 0xffff1300, 
