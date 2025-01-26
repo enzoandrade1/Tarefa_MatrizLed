@@ -72,7 +72,7 @@ void acender_leds_vermelho(PIO pio, uint sm) {
         }
     }
 
-    // Envia a configura��o para a matriz de LEDs
+    // Envia a configuração para a matriz de LEDs
     imprimir_desenho(matriz, pio, sm);
 }
 
@@ -105,6 +105,22 @@ void apagar_leds(PIO pio, uint sm) {
     // Envia a configuração de apagar para a matriz de LEDs
     imprimir_desenho(matriz, pio, sm);
 }
+
+// A ser chamada quando a tecla '#' for pressionada
+void acender_leds_brancos(PIO pio, uint sm){
+    Matriz_leds_config matriz;
+
+    for(int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            matriz[i][j].red = 0.2;
+            matriz[i][j].green = 0.2;
+            matriz[i][j].blue = 0.2;
+        }
+    }
+
+    imprimir_desenho(matriz,pio,sm);
+}
+
 // A ser chamado quando a tecla '3' for pressionada 
 void animation3(uint32_t sprites[][25],PIO pio, uint sm) {
     
@@ -121,6 +137,7 @@ void animation3(uint32_t sprites[][25],PIO pio, uint sm) {
 
 // A ser chamado quando a tecla '6' for pressionada 
 void animation6(uint32_t sprites[][25],PIO pio, uint sm) {
+
     // 20 Frames e 25 LEDS
     rgb_led rgb_data[ANIMACAO_6][25];
     
@@ -241,7 +258,7 @@ int main() {
                     break;
 
                 case '3':
-                    animation3(anim3, pio, sm)
+                    animation3(anim3, pio, sm);
                     break;
 
                 case '4':
@@ -265,7 +282,7 @@ int main() {
                     break;
 
                 case 'C':
-                    acender_leds_vermelho(pio, sm)
+                    acender_leds_vermelho(pio, sm);
                     break;
 
                 case 'D':
@@ -277,7 +294,7 @@ int main() {
                     break;
 
                 case '#':
-                    //Escrever a função aqui
+                    acender_leds_brancos(pio, sm);
                     break;
 
                 default:
