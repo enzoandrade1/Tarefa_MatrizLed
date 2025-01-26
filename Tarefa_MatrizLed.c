@@ -35,7 +35,10 @@ const char key_map[ROWS][COLS] = {
 
 // Numero de frames de cada animacao
 #define ANIMACAO_6 9
+#define ANIMACAO_4 6
 
+// Frames da animacao 4
+extern uint32_t anim4[][25];
 // Frames da animacao 6
 extern uint32_t anim6[][25];
 
@@ -72,6 +75,19 @@ void animation6(uint32_t sprites[][25],PIO pio, uint sm) {
 
     // Ativa o buzzer
     buzz(BUZZER_PIN, frequencies, durations);
+}
+
+// A ser chamado quando a tecla '4' for pressionada 
+void animation4(uint32_t sprites[][25],PIO pio, uint sm) {
+    
+    rgb_led rgb_data[ANIMACAO_4][25];
+    
+    hex_to_rgb(anim4, rgb_data, ANIMACAO_4);
+
+    ajustar_brilho(rgb_data, 0.5, ANIMACAO_4);
+
+    enviar_animacao(rgb_data, pio, sm, ANIMACAO_4);
+
 }
 
 // Inicializa os pinos do teclado matricial.
@@ -136,7 +152,7 @@ int main() {
                     break;
 
                 case '4':
-                    //Escrever a função aqui
+                    animation4(anim4, pio, sm);
                     break;
 
                 case '5':
