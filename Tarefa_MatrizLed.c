@@ -37,6 +37,10 @@ const char key_map[ROWS][COLS] = {
 #define ANIMACAO_6 9
 #define ANIMACAO_4 6
 #define ANIMACAO_1 9
+#define ANIMACAO_3 10
+
+// Frames da animacao 3
+extern uint32_t anim3[][25];
 
 // Frames da animacao 4
 extern uint32_t anim4[][25];
@@ -80,7 +84,25 @@ void apagar_leds(PIO pio, uint sm) {
     // Envia a configuração de apagar para a matriz de LEDs
     imprimir_desenho(matriz, pio, sm);
 }
+// A ser chamado quando a tecla '3' for pressionada 
+void animation3(uint32_t sprites[][25],PIO pio, uint sm) {
+    
+    rgb_led rgb_data[ANIMACAO_3][25];
+    
+    hex_to_rgb(anim3, rgb_data, ANIMACAO_3);
 
+    ajustar_brilho(rgb_data, 0.5, ANIMACAO_3);
+
+    enviar_animacao(rgb_data, pio, sm, ANIMACAO_3);
+
+    // Looping para rodar a animaÃ§Ã£o em loop
+    while (true) {
+        
+        enviar_animacao(rgb_data, pio, sm, ANIMACAO_3);
+
+        sleep_ms(200);
+    }
+}
 
 // A ser chamado quando a tecla '6' for pressionada 
 void animation6(uint32_t sprites[][25],PIO pio, uint sm) {
