@@ -108,6 +108,11 @@ void animation4(uint32_t sprites[][25],PIO pio, uint sm) {
 
 }
 
+//Função para dar reboot na placa
+void reboot() {
+    reset_usb_boot(0,0);
+}
+
 // Inicializa os pinos do teclado matricial.
 void inicializar_keypad() {
     for (int i = 0; i < ROWS; i++) {
@@ -198,7 +203,7 @@ int main() {
                     break;
 
                 case '*':
-                    //Escrever a função aqui  
+                    reboot();
                     break;
 
                 case '#':
