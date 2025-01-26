@@ -55,6 +55,23 @@ extern uint32_t anim1[][25];
 extern uint16_t frequencies[18];
 extern uint16_t durations[18];
 
+// A ser chamada quando a tecla 'C' for pressionada
+void acender_leds_vermelho(PIO pio, uint sm) {
+    Matriz_leds_config matriz;
+
+    // Itera sobre cada posição da matriz para acender os LEDs
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            matriz[i][j].red = 0.8;   // Liga todos os led vermelho em 80% 
+            matriz[i][j].green = 0.0; // Desliga os leds verde
+            matriz[i][j].blue = 0.0;  // Desliga os leds azul
+        }
+    }
+
+    // Envia a configura��o para a matriz de LEDs
+    imprimir_desenho(matriz, pio, sm);
+}
+
 // A ser chamada quando a tecla 'D' for pressionada
 void tecla_d(PIO pio, uint sm){
     Matriz_leds_config matriz;
@@ -156,7 +173,6 @@ void animation1(uint32_t sprites[][25], PIO pio, uint sm) {
 
 }
 
-
 //Função para dar reboot na placa
 void reboot() {
     reset_usb_boot(0,0);
@@ -220,7 +236,7 @@ int main() {
                     break;
 
                 case '3':
-                    //Escrever a função aqui
+                    animation3(anim3, pio, sm)
                     break;
 
                 case '4':
@@ -244,7 +260,7 @@ int main() {
                     break;
 
                 case 'C':
-                    //Escrever a função aqui
+                    acender_leds_vermelho(pio, sm)
                     break;
 
                 case 'D':
