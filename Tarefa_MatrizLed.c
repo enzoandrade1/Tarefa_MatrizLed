@@ -36,11 +36,16 @@ const char key_map[ROWS][COLS] = {
 // Numero de frames de cada animacao
 #define ANIMACAO_6 9
 #define ANIMACAO_4 6
+#define ANIMACAO_1 9
 
 // Frames da animacao 4
 extern uint32_t anim4[][25];
+
 // Frames da animacao 6
 extern uint32_t anim6[][25];
+
+// Frames da animacao 1
+extern uint32_t anim1[][25];
 
 // Melodia para a animacao 6
 extern uint16_t frequencies[18];
@@ -108,6 +113,28 @@ void animation4(uint32_t sprites[][25],PIO pio, uint sm) {
 
 }
 
+// A ser chamado quando a tecla '1' for pressionada
+void animation1(uint32_t sprites[][25], PIO pio, uint sm) {
+
+    rgb_led rgb_data[ANIMACAO_1][25];  
+    
+    hex_to_rgb(anim1, rgb_data, ANIMACAO_1);
+
+    ajustar_brilho(rgb_data, 1, ANIMACAO_1);
+
+    enviar_animacao(rgb_data, pio, sm, ANIMACAO_1);
+
+    // Looping para rodar a animação em loop
+    while (true) {
+        
+        enviar_animacao(rgb_data, pio, sm, ANIMACAO_1);
+
+        sleep_ms(200);
+    }
+
+}
+
+
 //Função para dar reboot na placa
 void reboot() {
     reset_usb_boot(0,0);
@@ -163,7 +190,7 @@ int main() {
         if (key != '\0') {  // Processa apenas se uma tecla for pressionada
             switch (key) {
                 case '1':
-                    //Escrever a função aqui
+                    animation1(anim1, pio, sm);
                     break;
 
                 case '2':
