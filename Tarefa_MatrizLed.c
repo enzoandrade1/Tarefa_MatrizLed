@@ -36,17 +36,21 @@ const char key_map[ROWS][COLS] = {
 // Numero de frames de cada animacao
 #define ANIMACAO_6 9
 #define ANIMACAO_4 6
-#define ANIMACAO_1 9
 #define ANIMACAO_3 10
+#define ANIMACAO_2 7
+#define ANIMACAO_1 9
 
-// Frames da animacao 3
-extern uint32_t anim3[][25];
+// Frames da animacao 6
+extern uint32_t anim6[][25];
 
 // Frames da animacao 4
 extern uint32_t anim4[][25];
 
-// Frames da animacao 6
-extern uint32_t anim6[][25];
+// Frames da animacao 3
+extern uint32_t anim3[][25];
+
+// Frames da animacao 2
+extern uint32_t anim2[][25];
 
 // Frames da animacao 1
 extern uint32_t anim1[][25];
@@ -135,6 +139,18 @@ void animation4(uint32_t sprites[][25],PIO pio, uint sm) {
 
 }
 
+// A ser chamado quando a tecla '2' for pressionada 
+void animation2(uint32_t sprites[][25],PIO pio, uint sm) {
+    
+    rgb_led rgb_data[ANIMACAO_2][25];
+    
+    hex_to_rgb(anim2, rgb_data, ANIMACAO_2);
+
+    ajustar_brilho(rgb_data, 1.0, ANIMACAO_2);
+
+    enviar_animacao(rgb_data, pio, sm, ANIMACAO_2);
+}
+
 // A ser chamado quando a tecla '1' for pressionada
 void animation1(uint32_t sprites[][25], PIO pio, uint sm) {
 
@@ -216,7 +232,7 @@ int main() {
                     break;
 
                 case '2':
-                    //Escrever a função aqui
+                    animation2(anim2, pio, sm);
                     break;
 
                 case '3':
