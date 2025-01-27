@@ -251,15 +251,47 @@ char ler_keypad() {
     for (int row = 0; row < ROWS; row++) {
         gpio_put(row_pins[row], 1);  // Coloca a linha atual em nível alto
         for (int col = 0; col < COLS; col++) {
-            if (gpio_get(col_pins[col])) {  // Verifica se há uma tecla pressionada
-                gpio_put(row_pins[row], 0);  // Retorna a linha ao estado baixo
-                sleep_ms(20);  // Tempo para evitar leituras incorretas (debounce)
-                return key_map[row][col];  // Retorna a tecla correspondente
+            if(gpio_get(col_pins[col])) {
+                sleep_ms(50);
+                if (gpio_get(col_pins[col])) {  // Verifica se há uma tecla pressionada
+                    gpio_put(row_pins[row], 0);  // Retorna a linha ao estado baixo
+                    return key_map[row][col];  // Retorna a tecla correspondente
+                }
             }
         }
         gpio_put(row_pins[row], 0);  // Garante que a linha retorna ao estado baixo
     }
     return '\0';  // Nenhuma tecla foi pressionada
+}
+
+void rotina_de_testes() {
+    PIO pio = pio0;
+    uint sm = configurar_matriz(pio, LED_PIN);
+
+    // Teste do teclado matricial
+    printf("Pressione qualquer tecla no teclado matricial...\n");
+    char key = '\0';
+    while (key == '\0') {
+        key = ler_keypad();
+    }
+    printf("Tecla pressionada: %c\n", key);
+
+    // Teste da matriz de LEDs
+    printf("Testando a matriz de LEDs...\n");
+    acender_leds_vermelho(pio, sm);
+    sleep_ms(1000);
+    tecla_b(pio, sm);
+    sleep_ms(1000);
+    tecla_d(pio, sm);
+    sleep_ms(1000);
+    acender_leds_brancos(pio, sm);
+    sleep_ms(1000);
+    apagar_leds(pio, sm);
+
+    // Teste do buzzer
+    printf("Testando o buzzer...\n");
+    buzz(BUZZER_PIN, frequencies, durations);
+    sleep_ms(500);
 }
 
 int main() {
@@ -325,6 +357,10 @@ int main() {
 
                 case '#':
                     acender_leds_brancos(pio, sm);
+                    break;
+
+                case '0':
+                    rotina_de_testes();
                     break;
 
                 default:
